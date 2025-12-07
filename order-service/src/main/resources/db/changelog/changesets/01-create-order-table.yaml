@@ -21,7 +21,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: product_id
-                  type: uuidv7()
+                  type: uuid
                   constraints:
                     nullable: false
               - column:
