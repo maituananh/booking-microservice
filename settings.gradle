@@ -2,4 +2,4 @@ rootProject.name = 'booking-microservice'
 
 include 'payment-service'
 include 'inventory-service'
-include 'booking-service'
+include 'order-service'
