@@ -20,16 +20,16 @@ public class InventoryOutboxEntity {
     private UUID aggregateId;
 
     @Column(name = "aggregate_type")
-    private UUID aggregateType;
+    private String aggregateType;
 
     @Column(name = "type")
-    private UUID type;
+    private String type;
 
-    @Column(name = "payload")
+    @Column(name = "payload", columnDefinition = "jsonb")
     private String payload;
 
     @Column(name = "topic")
-    private UUID topic;
+    private String topic;
 
     @Column(name = "trace_id")
     private UUID traceId;
