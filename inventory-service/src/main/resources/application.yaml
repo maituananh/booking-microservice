@@ -23,11 +23,11 @@ spring:
         format_sql: true
   cloud:
     function:
-      definition: consumerOrder
+      definition: handleReserveStockRequest
     stream:
       bindings:
-        consumerOrder-in-0:
-          destination: product-order
+        handleReserveStockRequest-in-0:
+          destination: order-producer
       kafka:
         binder:
           brokers: localhost:9092

@@ -1,7 +1,13 @@
 package org.booking.infra.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.booking.share.type.AggregateType;
+import org.booking.share.type.OrderType;
+import org.booking.share.type.Topic;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -9,6 +15,9 @@ import java.util.UUID;
 @Table(name = "orders_outbox")
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderOutboxEntity {
 
     @Id
@@ -20,16 +29,19 @@ public class OrderOutboxEntity {
     private UUID aggregateId;
 
     @Column(name = "aggregate_type")
-    private String aggregateType;
+    @Enumerated(EnumType.STRING)
+    private AggregateType aggregateType; // Order, Customer, Payment
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private OrderType type; // OrderCreated, OrderCancelled
 
     @Column(name = "payload", columnDefinition = "jsonb")
     private String payload;
 
     @Column(name = "topic")
-    private String topic;
+    @Enumerated(EnumType.STRING)
+    private Topic topic; // orders.event
 
     @Column(name = "trace_id")
     private UUID traceId;

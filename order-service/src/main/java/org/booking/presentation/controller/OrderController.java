@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.booking.application.service.OrderService;
 import org.booking.presentation.request.CreateOrderRequest;
 import org.booking.presentation.response.OrderResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

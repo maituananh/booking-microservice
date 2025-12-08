@@ -18,7 +18,7 @@
     "topic.prefix": "order_db_",
     "transforms": "outbox",
     "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
-    "transforms.outbox.route.topic.replacement": "${routedByValue}.events",
+    "transforms.outbox.route.topic.replacement": "topic",
     "transforms.outbox.table.fields.additional.placement": "type:header:eventType",
     "transforms.outbox.table.field.event.key": "aggregate_id",
     "transforms.outbox.table.field.event.payload.id": "aggregate_id",
