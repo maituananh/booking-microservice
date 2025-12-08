@@ -1,10 +1,16 @@
 databaseChangeLog:
   - changeSet:
-      id: 2
+      id: 1
       author: anhmt
       changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS pgcrypto;
         - createTable:
-            tableName: orders_outbox
+            tableName: products
             columns:
               - column:
                   name: id
@@ -14,33 +20,18 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: aggregate_id
-                  type: uuid
+                  name: available_quantity
+                  type: integer
                   constraints:
                     nullable: false
               - column:
-                  name: aggregate_type
-                  type: varchar
+                  name: reserved_quantity
+                  type: integer
                   constraints:
                     nullable: false
               - column:
-                  name: type
-                  type: varchar
-                  constraints:
-                    nullable: false
-              - column:
-                  name: payload
-                  type: JSONB
-                  constraints:
-                    nullable: false
-              - column:
-                  name: topic
-                  type: varchar
-                  constraints:
-                    nullable: false
-              - column:
-                  name: trace_id
-                  type: uuid
+                  name: on_hand_quantity
+                  type: integer
                   constraints:
                     nullable: false
               - column:

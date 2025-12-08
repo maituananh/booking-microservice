@@ -4,7 +4,7 @@ databaseChangeLog:
       author: anhmt
       changes:
         - createTable:
-            tableName: orders_outbox
+            tableName: inventories_outbox
             columns:
               - column:
                   name: id
