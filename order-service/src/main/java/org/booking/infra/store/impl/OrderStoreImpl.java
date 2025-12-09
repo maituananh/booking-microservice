@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class OrderStoreImpl implements OrderStore {
 
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    @Transactional
-    @Override
-    public Order save(final Order order) {
-        final var orderEntity = OrderInfraMapper.toEntity(order);
-        final var entitySaved = orderRepository.save(orderEntity);
+  @Transactional
+  @Override
+  public Order save(final Order order) {
+    final var orderEntity = OrderInfraMapper.toEntity(order);
+    final var entitySaved = orderRepository.save(orderEntity);
 
-        return OrderInfraMapper.toDomain(entitySaved);
-    }
+    return OrderInfraMapper.toDomain(entitySaved);
+  }
 }

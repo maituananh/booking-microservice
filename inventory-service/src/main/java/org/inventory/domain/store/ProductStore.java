@@ -1,4 +1,3 @@
 package org.inventory.domain.store;
 
-public interface ProductStore {
-}
+public interface ProductStore {}
