@@ -15,17 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class OrderService {
 
-    private final OrderOutboxStore orderOutboxStore;
-    private final OrderStore orderStore;
+  private final OrderOutboxStore orderOutboxStore;
+  private final OrderStore orderStore;
 
-    @Transactional
-    public Order createOrder(final CreateOrderRequest createOrderRequest) {
-        final var orderDomain = OrderAppMapper.toDomain(createOrderRequest);
-        final var orderSaved = orderStore.save(orderDomain);
+  @Transactional
+  public Order createOrder(final CreateOrderRequest createOrderRequest) {
+    final var orderDomain = OrderAppMapper.toDomain(createOrderRequest);
+    final var orderSaved = orderStore.save(orderDomain);
 
-        final var orderOutboxDomain = OrderOutboxAppMapper.toCreateOrder(orderSaved);
-        orderOutboxStore.save(orderOutboxDomain);
+    final var orderOutboxDomain = OrderOutboxAppMapper.toCreateOrder(orderSaved);
+    orderOutboxStore.save(orderOutboxDomain);
 
-        return orderSaved;
-    }
+    return orderSaved;
+  }
 }
