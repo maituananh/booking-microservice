@@ -8,20 +8,25 @@ databaseChangeLog:
             splitStatements: true
             stripComments: true
             sql: |
-              CREATE EXTENSION IF NOT EXISTS pgcrypto;
+              CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         - createTable:
             tableName: orders
             columns:
               - column:
                   name: id
                   type: uuid
-                  defaultValueComputed: uuidv7()
+                  defaultValueComputed: uuid_generate_v4()
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: product_id
                   type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar
                   constraints:
                     nullable: false
               - column:

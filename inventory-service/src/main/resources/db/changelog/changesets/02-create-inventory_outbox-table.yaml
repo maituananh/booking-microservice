@@ -9,7 +9,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: uuid
-                  defaultValueComputed: uuidv7()
+                  defaultValueComputed: uuid_generate_v4()
                   constraints:
                     primaryKey: true
                     nullable: false
