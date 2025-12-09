@@ -21,6 +21,7 @@ public class OrderOutboxAppMapper {
                 .topic(Topic.ORDERS_EVENT)
                 .aggregateType(AggregateType.ORDER)
                 .traceId(UUID.randomUUID())
+                .payload("{\"key\": \"value\"}")
                 .build();
     }
 

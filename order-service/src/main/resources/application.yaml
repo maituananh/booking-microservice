@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8181
 
 spring:
   application:
@@ -30,4 +30,4 @@ spring:
           destination: order-producer
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: localhost:29092

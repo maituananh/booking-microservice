@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.booking.share.type.AggregateType;
 import org.booking.share.type.OrderType;
 import org.booking.share.type.Topic;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -37,6 +39,7 @@ public class OrderOutboxEntity {
     private OrderType type; // OrderCreated, OrderCancelled
 
     @Column(name = "payload", columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     private String payload;
 
     @Column(name = "topic")

@@ -27,7 +27,8 @@ spring:
     stream:
       bindings:
         handleReserveStockRequest-in-0:
-          destination: order-producer
+          destination: ORDER.events
+          group: inventory-service
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: localhost:29092
