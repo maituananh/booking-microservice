@@ -13,11 +13,11 @@ public class OrderOutboxInfraMapper {
   public static OrderOutboxEntity toEntity(final OrderOutbox orderOutbox) {
     return OrderOutboxEntity.builder()
         .topic(orderOutbox.getTopic())
-        .aggregateId(UUID.randomUUID())
+        .aggregateId(orderOutbox.getAggregateId())
         .aggregateType(orderOutbox.getAggregateType())
         .type(orderOutbox.getType())
         .payload(orderOutbox.getPayload())
-        .traceId(UUID.randomUUID())
+        .traceId(orderOutbox.getTraceId())
         .createdAt(Instant.now())
         .updatedAt(Instant.now())
         .build();

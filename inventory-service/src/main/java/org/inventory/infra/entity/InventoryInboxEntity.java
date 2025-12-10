@@ -10,18 +10,17 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-@Table(name = "inventories_outbox")
+@Table(name = "inventories_inbox")
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class InventoryOutboxEntity {
+public class InventoryInboxEntity {
 
   @Id
-  @Column
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+  @Column(name = "event_id")
+  private UUID eventId;
 
   @Column(name = "aggregate_id")
   private UUID aggregateId;
@@ -29,8 +28,8 @@ public class InventoryOutboxEntity {
   @Column(name = "aggregate_type")
   private String aggregateType;
 
-  @Column(name = "type")
-  private String type;
+  @Column(name = "event_type")
+  private String eventType;
 
   @Column(name = "payload", columnDefinition = "jsonb")
   @JdbcTypeCode(SqlTypes.JSON)

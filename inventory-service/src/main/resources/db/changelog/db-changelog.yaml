@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changesets/01-create-products-table.yaml
   - include:
       file: db/changelog/changesets/02-create-inventory_outbox-table.yaml
+  - include:
+      file: db/changelog/changesets/03-create-inventory_inbox-table.yaml
