@@ -13,6 +13,7 @@ public class OrderAppMapper {
     return Order.builder()
         .productId(createOrderRequest.getProductId())
         .status(OrderStatus.PENDING)
+        .quantity(createOrderRequest.getQuantity())
         .build();
   }
 }

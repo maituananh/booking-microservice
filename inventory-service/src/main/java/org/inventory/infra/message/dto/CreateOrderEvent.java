@@ -1,17 +1,15 @@
-package org.booking.domain.entity;
+package org.inventory.infra.message.dto;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.booking.share.type.OrderStatus;
+import org.inventory.share.type.OrderStatus;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class CreateOrderEvent {
 
   private UUID id;
   private UUID productId;

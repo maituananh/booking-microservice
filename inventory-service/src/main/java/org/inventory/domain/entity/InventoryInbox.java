@@ -2,17 +2,21 @@ package org.inventory.domain.entity;
 
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class InventoryOutbox {
+@NoArgsConstructor
+@AllArgsConstructor
+public class InventoryInbox {
 
-  private UUID id;
+  private UUID eventId;
   private UUID aggregateId;
   private String aggregateType;
-  private String type;
+  private String eventType;
   private String payload;
   private String topic;
   private UUID traceId;
