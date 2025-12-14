@@ -1,16 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 2
       author: anhmt
       changes:
-        - sql:
-            dbms: postgresql
-            splitStatements: true
-            stripComments: true
-            sql: |
-              CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         - createTable:
-            tableName: workflows
+            tableName: workflows_outbox
             columns:
               - column:
                   name: id
@@ -20,23 +14,38 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: workflow
+                  name: aggregate_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: aggregate_type
                   type: varchar
                   constraints:
                     nullable: false
               - column:
-                  name: status
+                  name: type
                   type: varchar
                   constraints:
                     nullable: false
               - column:
-                  name: current_step
+                  name: payload
+                  type: JSONB
+                  constraints:
+                    nullable: false
+              - column:
+                  name: topic
                   type: varchar
                   constraints:
                     nullable: false
               - column:
-                  name: next_step
-                  type: varchar
+                  name: trace_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: event_id
+                  type: uuid
                   constraints:
                     nullable: false
               - column:

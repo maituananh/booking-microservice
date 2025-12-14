@@ -1,4 +1,4 @@
-package org.infra.entity;
+package org.center.infra.entity;
 
 import jakarta.persistence.*;
 import java.time.Instant;
@@ -29,6 +29,9 @@ public class WorkflowEntity {
 
   @Column(name = "current_step")
   private String currentStep;
+
+  @Column(name = "next_step")
+  private String nextStep;
 
   @Column(name = "created_at")
   private Instant createdAt;

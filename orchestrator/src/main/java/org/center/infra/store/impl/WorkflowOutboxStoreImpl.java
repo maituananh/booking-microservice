@@ -1,10 +1,10 @@
-package org.infra.store.impl;
+package org.center.infra.store.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.domain.entity.WorkflowOutbox;
-import org.domain.store.WorkflowOutboxStore;
-import org.infra.mapper.WorkflowOutboxInfraMapper;
-import org.infra.persistence.WorkflowOutboxRepository;
+import org.center.domain.entity.WorkflowOutbox;
+import org.center.domain.store.WorkflowOutboxStore;
+import org.center.infra.mapper.WorkflowOutboxInfraMapper;
+import org.center.infra.persistence.WorkflowOutboxRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

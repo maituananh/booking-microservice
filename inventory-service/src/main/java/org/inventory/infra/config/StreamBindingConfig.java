@@ -14,7 +14,7 @@ public class StreamBindingConfig {
   private final EventHandlerAdapter eventHandleAdapter;
 
   @Bean
-  public Consumer<Message<String>> orderRequest() {
+  public Consumer<Message<String>> handleReserveStockRequest() {
     return eventHandleAdapter::handleReserveStockRequest;
   }
 }

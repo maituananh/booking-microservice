@@ -1,6 +1,6 @@
-package org.domain.store;
+package org.center.domain.store;
 
-import org.domain.entity.WorkflowOutbox;
+import org.center.domain.entity.WorkflowOutbox;
 
 public interface WorkflowOutboxStore {
 

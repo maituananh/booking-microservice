@@ -29,6 +29,7 @@ public class InventoryInboxEntity {
   private UUID aggregateId;
 
   @Column(name = "aggregate_type")
+  @Enumerated(EnumType.STRING)
   private AggregateType aggregateType;
 
   @Column(name = "trace_id")

@@ -1,4 +1,4 @@
-package org.infra.entity;
+package org.center.infra.entity;
 
 import jakarta.persistence.*;
 import java.time.Instant;
@@ -26,7 +26,11 @@ public class WorkflowOutboxEntity {
   @Column(name = "aggregate_id")
   private UUID aggregateId;
 
+  @Column(name = "event_id")
+  private UUID eventId;
+
   @Column(name = "aggregate_type")
+  @Enumerated(EnumType.STRING)
   private AggregateType aggregateType;
 
   @Column(name = "type")
@@ -37,6 +41,7 @@ public class WorkflowOutboxEntity {
   private String payload;
 
   @Column(name = "topic")
+  @Enumerated(EnumType.STRING)
   private Topic topic;
 
   @Column(name = "trace_id")

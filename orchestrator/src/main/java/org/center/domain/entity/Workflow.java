@@ -1,4 +1,4 @@
-package org.domain.entity;
+package org.center.domain.entity;
 
 import java.time.Instant;
 import java.util.UUID;

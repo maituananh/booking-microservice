@@ -1,10 +1,10 @@
-package org.infra.mapper;
+package org.center.infra.mapper;
 
 import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.domain.entity.WorkflowOutbox;
-import org.infra.entity.WorkflowOutboxEntity;
+import org.center.domain.entity.WorkflowOutbox;
+import org.center.infra.entity.WorkflowOutboxEntity;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorkflowOutboxInfraMapper {
@@ -18,6 +18,7 @@ public class WorkflowOutboxInfraMapper {
         .payload(workflowOutbox.getPayload())
         .type(workflowOutbox.getType())
         .traceId(workflowOutbox.getTraceId())
+        .eventId(workflowOutbox.getEventId())
         .createdAt(Instant.now())
         .updatedAt(Instant.now())
         .build();
@@ -32,6 +33,7 @@ public class WorkflowOutboxInfraMapper {
         .payload(workflowOutboxEntity.getPayload())
         .type(workflowOutboxEntity.getType())
         .traceId(workflowOutboxEntity.getTraceId())
+        .eventId(workflowOutboxEntity.getEventId())
         .createdAt(workflowOutboxEntity.getCreatedAt())
         .updatedAt(workflowOutboxEntity.getUpdatedAt())
         .build();

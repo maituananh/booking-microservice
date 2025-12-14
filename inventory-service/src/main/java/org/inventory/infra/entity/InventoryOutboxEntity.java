@@ -46,6 +46,9 @@ public class InventoryOutboxEntity {
   @Column(name = "trace_id")
   private UUID traceId;
 
+  @Column(name = "event_id")
+  private UUID eventId;
+
   @Column(name = "created_at")
   private Instant createdAt;
 

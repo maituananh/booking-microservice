@@ -27,7 +27,7 @@ spring:
     stream:
       bindings:
         orderSuccess-in-0:
-          destination: ORDER_SUCCESS.events
+          destination: ORDER_SUCCESS_FINISH.events
       kafka:
         binder:
           brokers: localhost:29092

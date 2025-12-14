@@ -1,6 +1,6 @@
-package org.domain.store;
+package org.center.domain.store;
 
-import org.domain.entity.Workflow;
+import org.center.domain.entity.Workflow;
 
 public interface WorkflowStore {
   Workflow save(final Workflow workflow);

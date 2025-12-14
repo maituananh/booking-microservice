@@ -1,7 +1,7 @@
-package org.infra.persistence;
+package org.center.infra.persistence;
 
 import java.util.UUID;
-import org.infra.entity.WorkflowOutboxEntity;
+import org.center.infra.entity.WorkflowOutboxEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
