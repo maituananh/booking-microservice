@@ -1,10 +1,10 @@
-package org.infra.mapper;
+package org.center.infra.mapper;
 
 import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.domain.entity.Workflow;
-import org.infra.entity.WorkflowEntity;
+import org.center.domain.entity.Workflow;
+import org.center.infra.entity.WorkflowEntity;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorkflowInfraMapper {
@@ -15,6 +15,7 @@ public class WorkflowInfraMapper {
         .status(workflow.getStatus())
         .workflow(workflow.getWorkflow())
         .currentStep(workflow.getCurrentStep())
+        .nextStep(workflow.getNextStep())
         .createdAt(Instant.now())
         .updatedAt(Instant.now())
         .build();
@@ -26,6 +27,7 @@ public class WorkflowInfraMapper {
         .status(workflowEntity.getStatus())
         .workflow(workflowEntity.getWorkflow())
         .currentStep(workflowEntity.getCurrentStep())
+        .nextStep(workflowEntity.getNextStep())
         .createdAt(workflowEntity.getCreatedAt())
         .updatedAt(workflowEntity.getUpdatedAt())
         .build();

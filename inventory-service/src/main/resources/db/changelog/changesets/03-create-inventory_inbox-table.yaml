@@ -24,7 +24,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: event_id
-                  type: varchar
+                  type: uuid
                   constraints:
                     nullable: false
               - column:

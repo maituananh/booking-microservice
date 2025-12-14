@@ -1,4 +1,4 @@
-package org.infra.message.dto;
+package org.center.infra.message.dto;
 
 import java.util.UUID;
 import lombok.*;

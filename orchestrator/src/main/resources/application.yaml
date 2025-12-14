@@ -23,13 +23,13 @@ spring:
         format_sql: true
   cloud:
     function:
-      definition: orderRequest
+      definition: orderRequest;inventoryReply;paymentReply;orderSuccess
     stream:
       bindings:
         orderRequest-in-0:
           destination: ORDER_CREATED.events
         inventoryReply-in-0:
-          destination: ORDER_RESERVE_STOCK_INVENTORY.events
+          destination: ORDER_RESERVE_STOCK_SUCCESS.events
         paymentReply-in-0:
           destination: ORDER_PAYMENT.events
         orderSuccess-in-0:

@@ -1,8 +1,8 @@
-package org.infra.config;
+package org.center.infra.config;
 
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
-import org.infra.message.EventHandleAdapter;
+import org.center.infra.message.EventHandleAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;

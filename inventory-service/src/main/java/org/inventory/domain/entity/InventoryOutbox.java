@@ -18,6 +18,7 @@ public class InventoryOutbox {
   private String payload;
   private Topic topic;
   private UUID traceId;
+  private UUID eventId;
   private Instant createdAt;
   private Instant updatedAt;
 }

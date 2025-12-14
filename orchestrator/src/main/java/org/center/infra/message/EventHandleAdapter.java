@@ -1,4 +1,4 @@
-package org.infra.message;
+package org.center.infra.message;
 
 import static org.constants.AppConst.*;
 import static org.constants.AppConst.TRACE_ID;
@@ -7,10 +7,10 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.domain.entity.Workflow;
-import org.domain.entity.WorkflowOutbox;
-import org.domain.store.WorkflowOutboxStore;
-import org.domain.store.WorkflowStore;
+import org.center.domain.entity.Workflow;
+import org.center.domain.entity.WorkflowOutbox;
+import org.center.domain.store.WorkflowOutboxStore;
+import org.center.domain.store.WorkflowStore;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,6 +60,7 @@ public class EventHandleAdapter {
                 .topic(Topic.ORDER_RESERVE_STOCK_INVENTORY)
                 .traceId(traceId)
                 .type(eventType)
+                .payload(message.getPayload())
                 .build());
   }
 
@@ -97,6 +98,12 @@ public class EventHandleAdapter {
 
     final var consumerInventoryReply = message.getPayload();
 
+    log.info(
+        "EventHandlerAdapter at Orchestrator `consumerOrderSuccess`: event_type {}, event_id {}, trace_id {}",
+        eventType,
+        eventId,
+        traceId);
+
     workflowStore.save(
         Workflow.builder()
             .status(WorkflowStatus.COMPLETED)
@@ -112,7 +119,8 @@ public class EventHandleAdapter {
                 .aggregateType(AggregateType.INVENTORY)
                 .eventId(eventId)
                 .type(eventType)
-                .topic(Topic.ORDER_SUCCESS)
+                .topic(Topic.ORDER_SUCCESS_FINISH)
+                .payload(consumerInventoryReply)
                 .traceId(traceId)
                 .build());
   }

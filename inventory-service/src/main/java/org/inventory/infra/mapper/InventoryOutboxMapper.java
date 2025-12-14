@@ -1,5 +1,6 @@
 package org.inventory.infra.mapper;
 
+import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.inventory.domain.entity.InventoryOutbox;
@@ -17,6 +18,9 @@ public class InventoryOutboxMapper {
         .aggregateType(inventoryOutbox.getAggregateType())
         .payload(inventoryOutbox.getPayload())
         .traceId(inventoryOutbox.getTraceId())
+        .eventId(inventoryOutbox.getEventId())
+        .createdAt(Instant.now())
+        .updatedAt(Instant.now())
         .build();
   }
 
@@ -29,6 +33,9 @@ public class InventoryOutboxMapper {
         .aggregateType(entity.getAggregateType())
         .payload(entity.getPayload())
         .traceId(entity.getTraceId())
+        .eventId(entity.getEventId())
+        .createdAt(entity.getCreatedAt())
+        .updatedAt(entity.getUpdatedAt())
         .build();
   }
 }
