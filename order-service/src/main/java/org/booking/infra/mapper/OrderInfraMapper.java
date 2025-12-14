@@ -24,6 +24,8 @@ public class OrderInfraMapper {
         .id(orderEntity.getId())
         .status(orderEntity.getStatus())
         .productId(orderEntity.getProductId())
+        .createdAt(orderEntity.getCreatedAt())
+        .updatedAt(orderEntity.getUpdatedAt())
         .build();
   }
 }

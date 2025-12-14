@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: inventories_inbox
             columns:
               - column:
-                  name: event_id
+                  name: id
                   type: uuid
                   constraints:
                     primaryKey: true
@@ -23,17 +23,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: event_type
-                  type: varchar
-                  constraints:
-                    nullable: false
-              - column:
-                  name: payload
-                  type: JSONB
-                  constraints:
-                    nullable: false
-              - column:
-                  name: topic
+                  name: event_id
                   type: varchar
                   constraints:
                     nullable: false

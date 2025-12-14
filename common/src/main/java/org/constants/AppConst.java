@@ -1,4 +1,4 @@
-package org.inventory.share.constants;
+package org.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -15,4 +15,12 @@ public class AppConst {
   public static final String AGGREGATE_TYPE = "aggregateType";
 
   public static final String TRACE_ID = "traceId";
+
+  public static final String ORDER_SERVICE = "ORDER_SERVICE";
+
+  public static final String INVENTORY_SERVICE = "INVENTORY_SERVICE";
+
+  public static final String PAYMENT_SERVICE = "PAYMENT_SERVICE";
+
+  public static final String SUCCESSFUL = "SUCCESSFUL";
 }

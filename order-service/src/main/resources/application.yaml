@@ -23,11 +23,11 @@ spring:
         format_sql: true
   cloud:
     function:
-      definition: orderProducer
+      definition: orderSuccess
     stream:
       bindings:
-        orderProducer-out-0:
-          destination: order-producer
+        orderSuccess-in-0:
+          destination: ORDER_SUCCESS.events
       kafka:
         binder:
           brokers: localhost:29092

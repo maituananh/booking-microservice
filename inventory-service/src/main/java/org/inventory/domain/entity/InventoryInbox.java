@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.type.AggregateType;
 
 @Data
 @Builder
@@ -13,12 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InventoryInbox {
 
+  private UUID id;
   private UUID eventId;
   private UUID aggregateId;
-  private String aggregateType;
-  private String eventType;
-  private String payload;
-  private String topic;
+  private AggregateType aggregateType;
   private UUID traceId;
   private Instant createdAt;
   private Instant updatedAt;

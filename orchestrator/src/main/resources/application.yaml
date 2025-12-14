@@ -1,0 +1,39 @@
+server:
+  port: 8281
+
+spring:
+  application:
+    name: orchestrator-service
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://${DB_URL:localhost:5432}/${DB_NAME:orchestratordb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  liquibase:
+    change-log: classpath:db/changelog/db-changelog.yaml
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  cloud:
+    function:
+      definition: orderRequest
+    stream:
+      bindings:
+        orderRequest-in-0:
+          destination: ORDER_CREATED.events
+        inventoryReply-in-0:
+          destination: ORDER_RESERVE_STOCK_INVENTORY.events
+        paymentReply-in-0:
+          destination: ORDER_PAYMENT.events
+        orderSuccess-in-0:
+          destination: ORDER_SUCCESS.events
+      kafka:
+        binder:
+          brokers: localhost:29092

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.type.AggregateType;
+import org.type.Topic;
 
 @Table(name = "inventories_outbox")
 @Entity
@@ -27,7 +29,8 @@ public class InventoryOutboxEntity {
   private UUID aggregateId;
 
   @Column(name = "aggregate_type")
-  private String aggregateType;
+  @Enumerated(EnumType.STRING)
+  private AggregateType aggregateType;
 
   @Column(name = "type")
   private String type;
@@ -37,7 +40,8 @@ public class InventoryOutboxEntity {
   private String payload;
 
   @Column(name = "topic")
-  private String topic;
+  @Enumerated(EnumType.STRING)
+  private Topic topic;
 
   @Column(name = "trace_id")
   private UUID traceId;
