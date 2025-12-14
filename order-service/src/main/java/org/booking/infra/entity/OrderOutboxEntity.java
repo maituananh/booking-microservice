@@ -7,11 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.booking.share.type.AggregateType;
-import org.booking.share.type.OrderType;
-import org.booking.share.type.Topic;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.type.AggregateType;
+import org.type.OrderType;
+import org.type.Topic;
 
 @Table(name = "orders_outbox")
 @Entity
@@ -47,6 +47,9 @@ public class OrderOutboxEntity {
 
   @Column(name = "trace_id")
   private UUID traceId;
+
+  @Column(name = "event_id")
+  private UUID eventId;
 
   @Column(name = "created_at")
   private Instant createdAt;

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.share.type.WorkflowStatus;
+import org.type.WorkflowStatus;
 
 @Table(name = "workflows")
 @Entity

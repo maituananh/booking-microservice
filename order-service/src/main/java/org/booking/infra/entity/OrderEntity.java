@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.booking.share.type.OrderStatus;
+import org.type.OrderStatus;
 
 @Table(name = "orders")
 @Entity

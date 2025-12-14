@@ -1,0 +1,9 @@
+package org.type;
+
+public enum Topic {
+  ORDER_CREATED,
+  ORDER_RESERVE_STOCK_INVENTORY,
+  ORDER_PAYMENT,
+  ORDER_SUCCESS,
+  ;
+}

@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.share.type.WorkflowStatus;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import org.type.AggregateType;
+import org.type.Topic;
 
-@Table(name = "workflows")
+@Table(name = "workflows_outbox")
 @Entity
 @Getter
 @Setter
@@ -20,15 +23,24 @@ public class WorkflowOutboxEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "workflow")
-  private String workflow;
+  @Column(name = "aggregate_id")
+  private UUID aggregateId;
 
-  @Column(name = "status")
-  @Enumerated(EnumType.STRING)
-  private WorkflowStatus status;
+  @Column(name = "aggregate_type")
+  private AggregateType aggregateType;
 
-  @Column(name = "current_step")
-  private String currentStep;
+  @Column(name = "type")
+  private String type;
+
+  @Column(name = "payload", columnDefinition = "jsonb")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private String payload;
+
+  @Column(name = "topic")
+  private Topic topic;
+
+  @Column(name = "trace_id")
+  private UUID traceId;
 
   @Column(name = "created_at")
   private Instant createdAt;

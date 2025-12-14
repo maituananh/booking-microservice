@@ -3,7 +3,7 @@ package org.domain.entity;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.share.type.WorkflowStatus;
+import org.type.WorkflowStatus;
 
 @Getter
 @Setter

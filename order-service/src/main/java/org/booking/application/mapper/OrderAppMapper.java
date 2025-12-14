@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.booking.domain.entity.Order;
 import org.booking.presentation.request.CreateOrderRequest;
-import org.booking.share.type.OrderStatus;
+import org.type.OrderStatus;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderAppMapper {

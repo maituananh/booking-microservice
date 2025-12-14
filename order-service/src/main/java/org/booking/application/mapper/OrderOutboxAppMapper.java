@@ -5,9 +5,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.booking.domain.entity.Order;
 import org.booking.domain.entity.OrderOutbox;
-import org.booking.share.type.AggregateType;
-import org.booking.share.type.OrderType;
-import org.booking.share.type.Topic;
+import org.type.AggregateType;
+import org.type.OrderType;
+import org.type.Topic;
 import tools.jackson.databind.ObjectMapper;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -22,10 +22,11 @@ public class OrderOutboxAppMapper {
             .orderId(order.getId())
             .productId(order.getProductId())
             .type(OrderType.ORDER_CREATED)
-            .topic(Topic.ORDERS_EVENT)
+            .topic(Topic.ORDER_CREATED)
             .aggregateType(AggregateType.ORDER)
             .aggregateId(aggregateId)
-            .traceId(traceId);
+            .traceId(traceId)
+            .eventId(UUID.randomUUID());
 
     orderOutbox.payload(objectMapper.writeValueAsString(order));
 

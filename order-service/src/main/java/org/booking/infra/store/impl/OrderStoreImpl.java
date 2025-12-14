@@ -1,5 +1,7 @@
 package org.booking.infra.store.impl;
 
+import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.booking.domain.entity.Order;
 import org.booking.domain.store.OrderStore;
@@ -22,5 +24,10 @@ public class OrderStoreImpl implements OrderStore {
     final var entitySaved = orderRepository.save(orderEntity);
 
     return OrderInfraMapper.toDomain(entitySaved);
+  }
+
+  @Override
+  public Optional<Order> findById(final UUID id) {
+    return orderRepository.findById(id).map(OrderInfraMapper::toDomain).or(Optional::empty);
   }
 }

@@ -12,9 +12,12 @@ public class WorkflowOutboxInfraMapper {
   public static WorkflowOutboxEntity toEntity(final WorkflowOutbox workflowOutbox) {
     return WorkflowOutboxEntity.builder()
         .id(workflowOutbox.getId())
-        .status(workflowOutbox.getStatus())
-        .workflow(workflowOutbox.getWorkflow())
-        .currentStep(workflowOutbox.getCurrentStep())
+        .topic(workflowOutbox.getTopic())
+        .aggregateType(workflowOutbox.getAggregateType())
+        .aggregateId(workflowOutbox.getAggregateId())
+        .payload(workflowOutbox.getPayload())
+        .type(workflowOutbox.getType())
+        .traceId(workflowOutbox.getTraceId())
         .createdAt(Instant.now())
         .updatedAt(Instant.now())
         .build();
@@ -23,9 +26,12 @@ public class WorkflowOutboxInfraMapper {
   public static WorkflowOutbox toDomain(final WorkflowOutboxEntity workflowOutboxEntity) {
     return WorkflowOutbox.builder()
         .id(workflowOutboxEntity.getId())
-        .status(workflowOutboxEntity.getStatus())
-        .workflow(workflowOutboxEntity.getWorkflow())
-        .currentStep(workflowOutboxEntity.getCurrentStep())
+        .topic(workflowOutboxEntity.getTopic())
+        .aggregateType(workflowOutboxEntity.getAggregateType())
+        .aggregateId(workflowOutboxEntity.getAggregateId())
+        .payload(workflowOutboxEntity.getPayload())
+        .type(workflowOutboxEntity.getType())
+        .traceId(workflowOutboxEntity.getTraceId())
         .createdAt(workflowOutboxEntity.getCreatedAt())
         .updatedAt(workflowOutboxEntity.getUpdatedAt())
         .build();

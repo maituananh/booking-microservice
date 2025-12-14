@@ -1,4 +1,4 @@
-package org.share.type;
+package org.type;
 
 public enum WorkflowStatus {
   IN_PROGRESS,

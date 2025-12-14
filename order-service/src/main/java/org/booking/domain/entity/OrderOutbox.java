@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.booking.share.type.AggregateType;
-import org.booking.share.type.OrderType;
-import org.booking.share.type.Topic;
+import org.type.AggregateType;
+import org.type.OrderType;
+import org.type.Topic;
 
 @Data
 @AllArgsConstructor
@@ -23,4 +23,5 @@ public class OrderOutbox {
   private OrderType type;
   private String payload;
   private UUID traceId;
+  private UUID eventId;
 }

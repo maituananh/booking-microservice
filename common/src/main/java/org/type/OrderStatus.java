@@ -1,4 +1,4 @@
-package org.inventory.share.type;
+package org.type;
 
 public enum OrderStatus {
   PENDING,

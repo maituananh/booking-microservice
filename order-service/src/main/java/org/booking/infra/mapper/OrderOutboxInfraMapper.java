@@ -1,7 +1,6 @@
 package org.booking.infra.mapper;
 
 import java.time.Instant;
-import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.booking.domain.entity.OrderOutbox;
@@ -18,6 +17,7 @@ public class OrderOutboxInfraMapper {
         .type(orderOutbox.getType())
         .payload(orderOutbox.getPayload())
         .traceId(orderOutbox.getTraceId())
+        .eventId(orderOutbox.getEventId())
         .createdAt(Instant.now())
         .updatedAt(Instant.now())
         .build();
@@ -30,7 +30,7 @@ public class OrderOutboxInfraMapper {
         .aggregateType(orderOutboxEntity.getAggregateType())
         .type(orderOutboxEntity.getType())
         .payload(orderOutboxEntity.getPayload())
-        .traceId(UUID.randomUUID())
+        .traceId(orderOutboxEntity.getTraceId())
         .build();
   }
 }

@@ -1,4 +1,4 @@
-package org.booking.share.type;
+package org.type;
 
 public enum OrderType {
   ORDER_CREATED,

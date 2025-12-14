@@ -1,23 +1,18 @@
-package org.booking.domain.entity;
+package org.booking.infra.message.dto;
 
-import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.type.OrderStatus;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class CreateOrderEvent {
 
   private UUID id;
   private UUID productId;
   private OrderStatus status;
   private int quantity;
-  private Instant createdAt;
-  private Instant updatedAt;
 }

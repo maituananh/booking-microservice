@@ -1,8 +1,10 @@
 package org.domain.entity;
 
+import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.share.type.AggregateType;
+import org.type.AggregateType;
+import org.type.Topic;
 
 @Getter
 @Setter
@@ -11,12 +13,14 @@ import org.share.type.AggregateType;
 @Builder
 public class WorkflowOutbox {
 
-  private UUID productId;
-  private UUID orderId;
-  private Topic topic;
+  private UUID id;
   private UUID aggregateId;
   private AggregateType aggregateType;
-  private OrderType type;
+  private String type;
   private String payload;
+  private Topic topic;
   private UUID traceId;
+  private UUID eventId;
+  private Instant createdAt;
+  private Instant updatedAt;
 }

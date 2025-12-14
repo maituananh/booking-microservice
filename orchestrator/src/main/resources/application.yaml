@@ -27,11 +27,13 @@ spring:
     stream:
       bindings:
         orderRequest-in-0:
-          destination: order-producer
+          destination: ORDER_CREATED.events
         inventoryReply-in-0:
-          destination: order-producer
+          destination: ORDER_RESERVE_STOCK_INVENTORY.events
         paymentReply-in-0:
-          destination: order-producer
+          destination: ORDER_PAYMENT.events
+        orderSuccess-in-0:
+          destination: ORDER_SUCCESS.events
       kafka:
         binder:
           brokers: localhost:29092

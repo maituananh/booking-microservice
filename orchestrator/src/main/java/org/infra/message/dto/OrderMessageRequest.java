@@ -1,9 +1,12 @@
 package org.infra.message.dto;
 
+import java.util.UUID;
 import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class OrderMessageRequest {}
+public class OrderMessageRequest {
+  private UUID id;
+}
