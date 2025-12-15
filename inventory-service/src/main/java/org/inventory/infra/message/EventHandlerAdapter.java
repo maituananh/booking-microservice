@@ -62,7 +62,7 @@ public class EventHandlerAdapter {
         InventoryOutbox.builder()
             .aggregateId(aggregateId)
             .aggregateType(AggregateType.INVENTORY)
-            .topic(Topic.ORDER_SUCCESS)
+            .topic(Topic.RESERVE_STOCK_INVENTORY_SUCCESS)
             .traceId(traceId)
             .eventId(eventId)
             .payload(message.getPayload())
