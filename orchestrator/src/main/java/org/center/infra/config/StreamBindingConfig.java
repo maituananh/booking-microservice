@@ -20,7 +20,7 @@ public class StreamBindingConfig {
 
   @Bean
   public Consumer<Message<String>> inventoryReply() {
-    return eventHandleAdapter::consumerInventory;
+    return eventHandleAdapter::handleReserveStockSuccess;
   }
 
   @Bean

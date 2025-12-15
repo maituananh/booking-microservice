@@ -34,7 +34,7 @@ spring:
             back-off-max-interval: 10000
             back-off-multiplier: 2.0
         inventoryReply-in-0:
-          destination: ORDER_RESERVE_STOCK_SUCCESS.events
+          destination: RESERVE_STOCK_INVENTORY_SUCCESS.events
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000
