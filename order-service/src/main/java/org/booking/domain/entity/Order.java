@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.type.OrderStatus;
+import org.common.type.OrderStatus;
 
 @Data
 @Builder

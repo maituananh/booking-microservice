@@ -4,7 +4,7 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.type.OrderStatus;
+import org.common.type.OrderStatus;
 
 @Data
 @AllArgsConstructor

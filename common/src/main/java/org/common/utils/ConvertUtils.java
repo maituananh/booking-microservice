@@ -1,4 +1,4 @@
-package org.utils;
+package org.common.utils;
 
 import java.nio.charset.StandardCharsets;
 import lombok.AccessLevel;

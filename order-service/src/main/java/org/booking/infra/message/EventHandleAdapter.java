@@ -1,17 +1,17 @@
 package org.booking.infra.message;
 
-import static org.constants.AppConst.*;
+import static org.common.constants.AppConst.*;
 
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.booking.domain.store.OrderStore;
 import org.booking.infra.message.dto.CreateOrderEvent;
+import org.common.type.OrderStatus;
+import org.common.utils.ConvertUtils;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.type.OrderStatus;
-import org.utils.ConvertUtils;
 import tools.jackson.databind.ObjectMapper;
 
 @Component

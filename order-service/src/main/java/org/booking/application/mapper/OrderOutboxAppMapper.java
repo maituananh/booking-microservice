@@ -5,9 +5,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.booking.domain.entity.Order;
 import org.booking.domain.entity.OrderOutbox;
-import org.type.AggregateType;
-import org.type.OrderType;
-import org.type.Topic;
+import org.common.type.AggregateType;
+import org.common.type.OrderType;
+import org.common.type.Topic;
 import tools.jackson.databind.ObjectMapper;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

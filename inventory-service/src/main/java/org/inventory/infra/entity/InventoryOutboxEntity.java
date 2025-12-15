@@ -7,10 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.common.type.AggregateType;
+import org.common.type.Topic;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.type.AggregateType;
-import org.type.Topic;
 
 @Table(name = "inventories_outbox")
 @Entity

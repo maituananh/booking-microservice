@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.type.AggregateType;
-import org.type.OrderType;
-import org.type.Topic;
+import org.common.type.AggregateType;
+import org.common.type.OrderType;
+import org.common.type.Topic;
 
 @Data
 @AllArgsConstructor

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.type.OrderStatus;
+import org.common.type.OrderStatus;
 
 @Table(name = "orders")
 @Entity
