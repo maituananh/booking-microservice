@@ -1,0 +1,43 @@
+server:
+  port: 8282
+
+spring:
+  application:
+    name: payment-service
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://${DB_URL:localhost:5432}/${DB_NAME:paymentdb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  liquibase:
+    change-log: classpath:db/changelog/db-changelog.yaml
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  cloud:
+    function:
+      definition: handlePayment
+    stream:
+      bindings:
+        handlePayment-in-0:
+          destination: payment.events
+          consumer:
+            max-attempts: 3
+            back-off-initial-interval: 1000
+            back-off-max-interval: 10000
+            back-off-multiplier: 2.0
+      kafka:
+        binder:
+          brokers: localhost:29092
+        bindings:
+          handlePayment-in-0:
+            consumer:
+              ack-mode: RECORD
+              enable-dlq: true
