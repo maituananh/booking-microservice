@@ -1,10 +1,13 @@
 package org.inventory.infra.message;
 
-import static org.constants.AppConst.*;
+import static org.common.constants.AppConst.*;
 
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.common.type.AggregateType;
+import org.common.type.Topic;
+import org.common.utils.ConvertUtils;
 import org.inventory.domain.entity.InventoryInbox;
 import org.inventory.domain.entity.InventoryOutbox;
 import org.inventory.domain.store.InventoryInboxStore;
@@ -13,9 +16,6 @@ import org.inventory.infra.message.dto.CreateOrderEvent;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.type.AggregateType;
-import org.type.Topic;
-import org.utils.ConvertUtils;
 import tools.jackson.databind.ObjectMapper;
 
 @Component

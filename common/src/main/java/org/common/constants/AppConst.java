@@ -1,4 +1,4 @@
-package org.constants;
+package org.common.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

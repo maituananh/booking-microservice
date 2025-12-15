@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
-import org.type.AggregateType;
-import org.type.Topic;
+import org.common.type.AggregateType;
+import org.common.type.Topic;
 
 @Data
 @Builder

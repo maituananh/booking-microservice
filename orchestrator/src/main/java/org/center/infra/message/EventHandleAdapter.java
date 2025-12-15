@@ -1,7 +1,6 @@
 package org.center.infra.message;
 
-import static org.constants.AppConst.*;
-import static org.constants.AppConst.TRACE_ID;
+import static org.common.constants.AppConst.*;
 
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -11,13 +10,13 @@ import org.center.domain.entity.Workflow;
 import org.center.domain.entity.WorkflowOutbox;
 import org.center.domain.store.WorkflowOutboxStore;
 import org.center.domain.store.WorkflowStore;
+import org.common.type.AggregateType;
+import org.common.type.Topic;
+import org.common.type.WorkflowStatus;
+import org.common.utils.ConvertUtils;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.type.AggregateType;
-import org.type.Topic;
-import org.type.WorkflowStatus;
-import org.utils.ConvertUtils;
 
 @Component
 @RequiredArgsConstructor

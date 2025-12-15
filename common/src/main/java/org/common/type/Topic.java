@@ -1,4 +1,4 @@
-package org.type;
+package org.common.type;
 
 public enum Topic {
   ORDER_CREATED,

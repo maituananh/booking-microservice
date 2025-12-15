@@ -3,8 +3,8 @@ package org.center.domain.entity;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
-import org.type.AggregateType;
-import org.type.Topic;
+import org.common.type.AggregateType;
+import org.common.type.Topic;
 
 @Getter
 @Setter
