@@ -11,6 +11,7 @@ import org.center.domain.entity.WorkflowOutbox;
 import org.center.domain.store.WorkflowOutboxStore;
 import org.center.domain.store.WorkflowStore;
 import org.common.type.AggregateType;
+import org.common.type.EventType;
 import org.common.type.Topic;
 import org.common.type.WorkflowStatus;
 import org.common.utils.ConvertUtils;
@@ -42,22 +43,23 @@ public class EventHandleAdapter {
         eventId,
         traceId);
 
-    workflowStore.save(
-        Workflow.builder()
-            .status(WorkflowStatus.IN_PROGRESS)
-            .currentStep(ORDER_SERVICE)
-            .nextStep(INVENTORY_SERVICE)
-            .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
-            .build());
+    final var workflow =
+        workflowStore.save(
+            Workflow.builder()
+                .status(WorkflowStatus.IN_PROGRESS)
+                .currentStep(ORDER_SERVICE)
+                .nextStep(INVENTORY_SERVICE)
+                .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
+                .build());
 
     workflowOutboxStore.save(
         WorkflowOutbox.builder()
-            .aggregateId(UUID.randomUUID())
+            .aggregateId(workflow.getId())
             .aggregateType(AggregateType.INVENTORY)
             .eventId(eventId)
-            .topic(Topic.ORDER_RESERVE_STOCK_INVENTORY)
+            .topic(Topic.INVENTORY_COMMAND)
             .traceId(traceId)
-            .type(eventType)
+            .type(EventType.INVENTORY_CREATED)
             .payload(message.getPayload())
             .build());
   }
@@ -76,22 +78,23 @@ public class EventHandleAdapter {
 
     final var consumerInventoryReply = message.getPayload();
 
-    workflowStore.save(
-        Workflow.builder()
-            .status(WorkflowStatus.IN_PROGRESS)
-            .currentStep(INVENTORY_SERVICE)
-            .nextStep(PAYMENT_SERVICE)
-            .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
-            .build());
+    final var workflow =
+        workflowStore.save(
+            Workflow.builder()
+                .status(WorkflowStatus.IN_PROGRESS)
+                .currentStep(INVENTORY_SERVICE)
+                .nextStep(PAYMENT_SERVICE)
+                .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
+                .build());
 
     workflowOutboxStore.save(
         WorkflowOutbox.builder()
-            .aggregateId(UUID.randomUUID())
+            .aggregateId(workflow.getId())
             .aggregateType(AggregateType.INVENTORY)
             .eventId(eventId)
-            .topic(Topic.PAYMENT)
+            .topic(Topic.PAYMENTS_COMMAND)
             .traceId(traceId)
-            .type(eventType)
+            .type(EventType.PAYMENT_CREATED)
             .payload(message.getPayload())
             .build());
   }
@@ -110,21 +113,22 @@ public class EventHandleAdapter {
 
     final var consumerInventoryReply = message.getPayload();
 
-    workflowStore.save(
-        Workflow.builder()
-            .status(WorkflowStatus.COMPLETED)
-            .currentStep(SUCCESSFUL)
-            .nextStep(SUCCESSFUL)
-            .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
-            .build());
+    final var workflow =
+        workflowStore.save(
+            Workflow.builder()
+                .status(WorkflowStatus.COMPLETED)
+                .currentStep(SUCCESSFUL)
+                .nextStep(SUCCESSFUL)
+                .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
+                .build());
 
     workflowOutboxStore.save(
         WorkflowOutbox.builder()
-            .aggregateId(UUID.randomUUID())
+            .aggregateId(workflow.getId())
             .aggregateType(AggregateType.INVENTORY)
             .eventId(eventId)
-            .type(eventType)
-            .topic(Topic.ORDER_SUCCESS_FINISH)
+            .type(EventType.ORDER_SUCCEEDED)
+            .topic(Topic.ORDERS_COMMAND)
             .payload(consumerInventoryReply)
             .traceId(traceId)
             .build());
@@ -151,17 +155,5 @@ public class EventHandleAdapter {
             .nextStep(SUCCESSFUL)
             .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
             .build());
-
-    final var outbox =
-        workflowOutboxStore.save(
-            WorkflowOutbox.builder()
-                .aggregateId(UUID.randomUUID())
-                .aggregateType(AggregateType.INVENTORY)
-                .eventId(eventId)
-                .type(eventType)
-                .topic(Topic.ORDER_SUCCESS_FINISH)
-                .payload(consumerInventoryReply)
-                .traceId(traceId)
-                .build());
   }
 }

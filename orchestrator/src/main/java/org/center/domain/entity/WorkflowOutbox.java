@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
 import org.common.type.AggregateType;
+import org.common.type.EventType;
 import org.common.type.Topic;
 
 @Getter
@@ -16,7 +17,7 @@ public class WorkflowOutbox {
   private UUID id;
   private UUID aggregateId;
   private AggregateType aggregateType;
-  private String type;
+  private EventType type;
   private String payload;
   private Topic topic;
   private UUID traceId;

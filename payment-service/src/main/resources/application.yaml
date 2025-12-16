@@ -27,7 +27,7 @@ spring:
     stream:
       bindings:
         handlePayment-in-0:
-          destination: payment.events
+          destination: payments.command
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000

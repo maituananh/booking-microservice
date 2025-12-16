@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
 import org.common.type.AggregateType;
-import org.common.type.Topic;
+import org.common.type.EventType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -34,15 +34,15 @@ public class WorkflowOutboxEntity {
   private AggregateType aggregateType;
 
   @Column(name = "type")
-  private String type;
+  @Enumerated(EnumType.STRING)
+  private EventType type;
 
   @Column(name = "payload", columnDefinition = "jsonb")
   @JdbcTypeCode(SqlTypes.JSON)
   private String payload;
 
   @Column(name = "topic")
-  @Enumerated(EnumType.STRING)
-  private Topic topic;
+  private String topic;
 
   @Column(name = "trace_id")
   private UUID traceId;

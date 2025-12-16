@@ -18,6 +18,8 @@ public class Order {
   private UUID productId;
   private OrderStatus status;
   private int quantity;
+  private UUID traceId;
+  private UUID eventId;
   private Instant createdAt;
   private Instant updatedAt;
 }

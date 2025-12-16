@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.center.domain.entity.WorkflowOutbox;
 import org.center.infra.entity.WorkflowOutboxEntity;
+import org.common.type.Topic;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorkflowOutboxInfraMapper {
@@ -12,7 +13,7 @@ public class WorkflowOutboxInfraMapper {
   public static WorkflowOutboxEntity toEntity(final WorkflowOutbox workflowOutbox) {
     return WorkflowOutboxEntity.builder()
         .id(workflowOutbox.getId())
-        .topic(workflowOutbox.getTopic())
+        .topic(workflowOutbox.getTopic().getValue())
         .aggregateType(workflowOutbox.getAggregateType())
         .aggregateId(workflowOutbox.getAggregateId())
         .payload(workflowOutbox.getPayload())
@@ -27,7 +28,7 @@ public class WorkflowOutboxInfraMapper {
   public static WorkflowOutbox toDomain(final WorkflowOutboxEntity workflowOutboxEntity) {
     return WorkflowOutbox.builder()
         .id(workflowOutboxEntity.getId())
-        .topic(workflowOutboxEntity.getTopic())
+        .topic(Topic.valueOf(workflowOutboxEntity.getTopic()))
         .aggregateType(workflowOutboxEntity.getAggregateType())
         .aggregateId(workflowOutboxEntity.getAggregateId())
         .payload(workflowOutboxEntity.getPayload())

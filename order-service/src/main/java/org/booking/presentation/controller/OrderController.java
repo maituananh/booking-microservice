@@ -1,7 +1,7 @@
 package org.booking.presentation.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.booking.application.service.OrderService;
+import org.booking.application.usecase.CreateOrderUsecase;
 import org.booking.presentation.request.CreateOrderRequest;
 import org.booking.presentation.response.OrderResponse;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderController {
 
-  private final OrderService orderService;
+  private final CreateOrderUsecase createOrderUsecase;
 
   @PostMapping
   public ResponseEntity<OrderResponse> addOrder(
       @RequestBody CreateOrderRequest createOrderRequest) {
-    orderService.createOrder(createOrderRequest);
+    createOrderUsecase.execute(createOrderRequest);
     return null;
   }
 }

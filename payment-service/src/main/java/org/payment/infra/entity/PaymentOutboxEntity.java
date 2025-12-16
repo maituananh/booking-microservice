@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.common.type.AggregateType;
-import org.common.type.Topic;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -40,8 +39,7 @@ public class PaymentOutboxEntity {
   private String payload;
 
   @Column(name = "topic")
-  @Enumerated(EnumType.STRING)
-  private Topic topic;
+  private String topic;
 
   @Column(name = "trace_id")
   private UUID traceId;

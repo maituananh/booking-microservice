@@ -23,25 +23,30 @@ spring:
         format_sql: true
   cloud:
     function:
-      definition: orderRequest;inventoryReply;paymentReply;orderSuccess
+      definition: orderRequest;inventoryReserveStock;paymentReply;orderSuccess
     stream:
       bindings:
         orderRequest-in-0:
-          destination: ORDER_CREATED.events
+          destination: orders.event
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000
             back-off-max-interval: 10000
             back-off-multiplier: 2.0
-        inventoryReply-in-0:
-          destination: RESERVE_STOCK_INVENTORY_SUCCESS.events
+        inventoryReserveStock-in-0:
+          destination: inventory.event
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000
             back-off-max-interval: 10000
             back-off-multiplier: 2.0
         paymentReply-in-0:
-          destination: ORDER_PAYMENT.events
+          destination: payments.event
+          consumer:
+            max-attempts: 3
+            back-off-initial-interval: 1000
+            back-off-max-interval: 10000
+            back-off-multiplier: 2.0
         orderSuccess-in-0:
           destination: ORDER_SUCCESS.events
           consumer:

@@ -3,6 +3,7 @@ package org.payment.infra.mapper;
 import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.common.type.Topic;
 import org.payment.domain.entity.PaymentOutbox;
 import org.payment.infra.entity.PaymentOutboxEntity;
 
@@ -13,7 +14,7 @@ public class PaymentOutboxMapper {
     return PaymentOutboxEntity.builder()
         .id(domain.getId())
         .type(domain.getType())
-        .topic(domain.getTopic())
+        .topic(domain.getTopic().getValue())
         .aggregateId(domain.getAggregateId())
         .aggregateType(domain.getAggregateType())
         .payload(domain.getPayload())
@@ -28,7 +29,7 @@ public class PaymentOutboxMapper {
     return PaymentOutbox.builder()
         .id(entity.getId())
         .type(entity.getType())
-        .topic(entity.getTopic())
+        .topic(Topic.valueOf(entity.getTopic()))
         .aggregateId(entity.getAggregateId())
         .aggregateType(entity.getAggregateType())
         .payload(entity.getPayload())
