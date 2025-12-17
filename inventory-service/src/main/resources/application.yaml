@@ -27,7 +27,19 @@ spring:
     stream:
       bindings:
         handleReserveStockRequest-in-0:
-          destination: ORDER_RESERVE_STOCK_INVENTORY.events
+          destination: inventory.command
+          group: inventory-order-group
+          consumer:
+            max-attempts: 3
+            back-off-initial-interval: 1000
+            back-off-max-interval: 10000
+            back-off-multiplier: 2.0
       kafka:
         binder:
           brokers: localhost:29092
+        bindings:
+          handleReserveStockRequest-in-0:
+            consumer:
+              ack-mode: RECORD
+              enable-dlq: true
+

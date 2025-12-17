@@ -14,7 +14,7 @@ public class StreamBindingConfig {
   private final EventHandleAdapter eventHandleAdapter;
 
   @Bean
-  public Consumer<Message<String>> orderSuccess() {
-    return eventHandleAdapter::consumerOrderSuccess;
+  public Consumer<Message<String>> handleOrderRequest() {
+    return eventHandleAdapter::handleEvent;
   }
 }

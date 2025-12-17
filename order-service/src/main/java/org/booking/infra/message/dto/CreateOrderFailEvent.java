@@ -9,9 +9,9 @@ import org.common.type.OrderStatus;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateOrderEvent {
+public class CreateOrderFailEvent {
 
+  private UUID orderId;
   private UUID productId;
   private OrderStatus status;
-  private int quantity;
 }

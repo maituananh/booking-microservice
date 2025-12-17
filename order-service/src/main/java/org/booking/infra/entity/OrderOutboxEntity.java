@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.common.type.AggregateType;
 import org.common.type.OrderType;
-import org.common.type.Topic;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -31,7 +30,7 @@ public class OrderOutboxEntity {
 
   @Column(name = "aggregate_type")
   @Enumerated(EnumType.STRING)
-  private AggregateType aggregateType; // Order, Customer, Payment
+  private AggregateType aggregateType;
 
   @Column(name = "type")
   @Enumerated(EnumType.STRING)
@@ -42,8 +41,7 @@ public class OrderOutboxEntity {
   private String payload;
 
   @Column(name = "topic")
-  @Enumerated(EnumType.STRING)
-  private Topic topic; // orders.event
+  private String topic;
 
   @Column(name = "trace_id")
   private UUID traceId;

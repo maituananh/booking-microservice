@@ -5,46 +5,72 @@ import static org.common.constants.AppConst.*;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.booking.domain.store.OrderStore;
+import org.booking.application.usecase.CreateOrderFailUsecase;
+import org.booking.application.usecase.CreateOrderSuccessUsecase;
+import org.booking.application.usecase.CreateOrderUsecase;
+import org.booking.infra.mapper.OrderInfraMapper;
 import org.booking.infra.message.dto.CreateOrderEvent;
-import org.common.type.OrderStatus;
+import org.booking.infra.message.dto.CreateOrderFailEvent;
+import org.booking.infra.message.dto.CreateOrderSuccessEvent;
+import org.common.type.EventType;
 import org.common.utils.ConvertUtils;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.ObjectMapper;
 
 @Component
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 @Slf4j
 public class EventHandleAdapter {
 
-  private final OrderStore orderStore;
+  private final CreateOrderUsecase createOrderUsecase;
+  private final CreateOrderFailUsecase createOrderFailUsecase;
+  private final CreateOrderSuccessUsecase createOrderSuccessUsecase;
   private final ObjectMapper objectMapper;
 
-  @Transactional
-  public void consumerOrderSuccess(final Message<String> message) {
+  public void handleEvent(final Message<String> message) {
     final var eventType = ConvertUtils.toString(message.getHeaders().get(EVENT_TYPE));
+
+    log.info("Received event {}", eventType);
+
+    switch (EventType.valueOf(eventType)) {
+      case ORDER_CREATED -> handleOrderRequest(message);
+      case ORDER_CANCELLED -> handleOrderFailed(message);
+      case ORDER_SUCCEEDED -> handleOrderSuccess(message);
+
+      default -> throw new IllegalArgumentException("Unknown event type: " + eventType);
+    }
+  }
+
+  private void handleOrderRequest(final Message<String> message) {
     final var eventId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(EVENT_ID)));
     final var traceId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(TRACE_ID)));
 
-    log.info(
-        "EventHandlerAdapter at Order: event_type {}, event_id {}, trace_id {}",
-        eventType,
-        eventId,
-        traceId);
-
-    CreateOrderEvent createOrderEvent =
+    final var createOrderEvent =
         objectMapper.readValue(message.getPayload(), CreateOrderEvent.class);
 
-    final var orderOptional = orderStore.findById(createOrderEvent.getId());
+    createOrderUsecase.execute(OrderInfraMapper.toDomain(createOrderEvent, eventId, traceId));
+  }
 
-    if (orderOptional.isPresent()) {
-      final var order = orderOptional.get();
+  private void handleOrderFailed(final Message<String> message) {
+    final var eventId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(EVENT_ID)));
+    final var traceId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(TRACE_ID)));
 
-      order.setStatus(OrderStatus.COMPLETED);
-      orderStore.save(order);
-    }
+    final var createOrderFailEvent =
+        objectMapper.readValue(message.getPayload(), CreateOrderFailEvent.class);
+
+    createOrderFailUsecase.execute(
+        OrderInfraMapper.toDomain(createOrderFailEvent, eventId, traceId));
+  }
+
+  private void handleOrderSuccess(final Message<String> message) {
+    final var eventId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(EVENT_ID)));
+    final var traceId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(TRACE_ID)));
+
+    final var orderSuccessEvent =
+        objectMapper.readValue(message.getPayload(), CreateOrderSuccessEvent.class);
+
+    createOrderSuccessUsecase.execute(
+        OrderInfraMapper.toDomain(orderSuccessEvent, eventId, traceId));
   }
 }

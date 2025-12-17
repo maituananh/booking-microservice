@@ -23,11 +23,11 @@ spring:
         format_sql: true
   cloud:
     function:
-      definition: orderSuccess
+      definition: handleOrderRequest
     stream:
       bindings:
-        orderSuccess-in-0:
-          destination: ORDER_SUCCESS_FINISH.events
+        handleOrderRequest-in-0:
+          destination: orders.command
       kafka:
         binder:
           brokers: localhost:29092

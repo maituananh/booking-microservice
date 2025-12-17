@@ -3,6 +3,7 @@ package org.inventory.infra.mapper;
 import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.common.type.Topic;
 import org.inventory.domain.entity.InventoryOutbox;
 import org.inventory.infra.entity.InventoryOutboxEntity;
 
@@ -13,7 +14,7 @@ public class InventoryOutboxMapper {
     return InventoryOutboxEntity.builder()
         .id(inventoryOutbox.getId())
         .type(inventoryOutbox.getType())
-        .topic(inventoryOutbox.getTopic())
+        .topic(inventoryOutbox.getTopic().getValue())
         .aggregateId(inventoryOutbox.getAggregateId())
         .aggregateType(inventoryOutbox.getAggregateType())
         .payload(inventoryOutbox.getPayload())
@@ -28,7 +29,7 @@ public class InventoryOutboxMapper {
     return InventoryOutbox.builder()
         .id(entity.getId())
         .type(entity.getType())
-        .topic(entity.getTopic())
+        .topic(Topic.fromValue(entity.getTopic()))
         .aggregateId(entity.getAggregateId())
         .aggregateType(entity.getAggregateType())
         .payload(entity.getPayload())

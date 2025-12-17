@@ -5,13 +5,14 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.booking.domain.entity.OrderOutbox;
 import org.booking.infra.entity.OrderOutboxEntity;
+import org.common.type.Topic;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderOutboxInfraMapper {
 
   public static OrderOutboxEntity toEntity(final OrderOutbox orderOutbox) {
     return OrderOutboxEntity.builder()
-        .topic(orderOutbox.getTopic())
+        .topic(orderOutbox.getTopic().getValue())
         .aggregateId(orderOutbox.getAggregateId())
         .aggregateType(orderOutbox.getAggregateType())
         .type(orderOutbox.getType())
@@ -25,7 +26,7 @@ public class OrderOutboxInfraMapper {
 
   public static OrderOutbox toDomain(final OrderOutboxEntity orderOutboxEntity) {
     return OrderOutbox.builder()
-        .topic(orderOutboxEntity.getTopic())
+        .topic(Topic.fromValue(orderOutboxEntity.getTopic()))
         .aggregateId(orderOutboxEntity.getAggregateId())
         .aggregateType(orderOutboxEntity.getAggregateType())
         .type(orderOutboxEntity.getType())
