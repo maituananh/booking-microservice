@@ -50,14 +50,6 @@ spring:
             back-off-initial-interval: 1000
             back-off-max-interval: 10000
             back-off-multiplier: 2.0
-        orderSuccess-in-0:
-          destination: ORDER_SUCCESS.events
-          group: orderSuccess-orchestrator
-          consumer:
-            max-attempts: 3
-            back-off-initial-interval: 1000
-            back-off-max-interval: 10000
-            back-off-multiplier: 2.0
       kafka:
         binder:
           brokers: localhost:29092

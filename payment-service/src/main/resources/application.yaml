@@ -42,3 +42,7 @@ spring:
             consumer:
               ack-mode: RECORD
               enable-dlq: true
+
+stripe:
+  public-key: ${STRIPE_PUBLIC_KEY}
+  secret-ket: ${STRIPE_SECRET_KEY}

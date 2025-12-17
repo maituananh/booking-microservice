@@ -111,7 +111,7 @@ public class EventHandleAdapter {
         eventId,
         traceId);
 
-    final var consumerInventoryReply = message.getPayload();
+    final var inventoryPayload = message.getPayload();
 
     final var workflow =
         workflowStore.save(
@@ -129,31 +129,8 @@ public class EventHandleAdapter {
             .eventId(eventId)
             .type(EventType.ORDER_SUCCEEDED)
             .topic(Topic.ORDERS_COMMAND)
-            .payload(consumerInventoryReply)
+            .payload(inventoryPayload)
             .traceId(traceId)
-            .build());
-  }
-
-  @Transactional
-  public void consumerOrderSuccess(final Message<String> message) {
-    final var eventType = ConvertUtils.toString(message.getHeaders().get(EVENT_TYPE));
-    final var eventId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(EVENT_ID)));
-    final var traceId = UUID.fromString(ConvertUtils.toString(message.getHeaders().get(TRACE_ID)));
-
-    final var consumerInventoryReply = message.getPayload();
-
-    log.info(
-        "EventHandlerAdapter at Orchestrator `consumerOrderSuccess`: event_type {}, event_id {}, trace_id {}",
-        eventType,
-        eventId,
-        traceId);
-
-    workflowStore.save(
-        Workflow.builder()
-            .status(WorkflowStatus.COMPLETED)
-            .currentStep(SUCCESSFUL)
-            .nextStep(SUCCESSFUL)
-            .workflow(StringUtils.join(ORDER_WORKFLOW, ";"))
             .build());
   }
 }

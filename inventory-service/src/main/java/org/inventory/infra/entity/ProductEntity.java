@@ -21,6 +21,9 @@ public class ProductEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
+  @Column(name = "name")
+  private String name;
+
   @Column(name = "available_quantity")
   private Integer availableQuantity;
 
@@ -29,6 +32,9 @@ public class ProductEntity {
 
   @Column(name = "on_hand_quantity")
   private Integer onHandQuantity;
+
+  @Column(name = "amount")
+  private Long amount;
 
   @Column(name = "created_at")
   private Instant createdAt;

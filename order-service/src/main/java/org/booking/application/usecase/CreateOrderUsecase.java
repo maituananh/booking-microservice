@@ -30,6 +30,7 @@ public class CreateOrderUsecase {
                 .traceId(order.getTraceId())
                 .eventId(order.getEventId())
                 .status(OrderStatus.PENDING)
+                .quantity(order.getQuantity())
                 .productId(order.getProductId())
                 .build());
 
@@ -37,7 +38,7 @@ public class CreateOrderUsecase {
         OrderOutbox.Payload.builder()
             .id(orderSaved.getId())
             .productId(orderSaved.getProductId())
-            .quantity(orderSaved.getQuantity())
+            .quantity(order.getQuantity())
             .status(orderSaved.getStatus())
             .build();
 

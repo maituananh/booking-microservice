@@ -6,12 +6,14 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.common.type.AggregateType;
+import org.common.type.EventType;
 import org.common.type.Topic;
 import org.common.utils.ConvertUtils;
 import org.inventory.domain.entity.InventoryInbox;
 import org.inventory.domain.entity.InventoryOutbox;
 import org.inventory.domain.store.InventoryInboxStore;
 import org.inventory.domain.store.InventoryOutboxStore;
+import org.inventory.domain.store.ProductStore;
 import org.inventory.infra.message.dto.CreateOrderEvent;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,7 @@ public class EventHandlerAdapter {
   private final ObjectMapper objectMapper;
   private final InventoryInboxStore inventoryInboxStore;
   private final InventoryOutboxStore inventoryOutboxStore;
+  private final ProductStore productStore;
 
   @Transactional
   public void handleReserveStockRequest(final Message<String> message) {
@@ -48,6 +51,20 @@ public class EventHandlerAdapter {
     CreateOrderEvent createOrderEvent =
         objectMapper.readValue(message.getPayload(), CreateOrderEvent.class);
 
+    final var product = productStore.findById(createOrderEvent.getProductId()).orElseThrow();
+    product.setAvailableQuantity(product.getAvailableQuantity() - createOrderEvent.getQuantity());
+    product.setReservedQuantity(product.getReservedQuantity() + createOrderEvent.getQuantity());
+    productStore.save(product);
+
+    InventoryOutbox.Payload payload =
+        InventoryOutbox.Payload.builder()
+            .id(createOrderEvent.getId())
+            .productName(product.getName())
+            .quantity(createOrderEvent.getQuantity())
+            .productId(createOrderEvent.getProductId())
+            .amount(product.getAmount())
+            .build();
+
     final var aggregateId = UUID.randomUUID();
 
     inventoryInboxStore.save(
@@ -65,8 +82,8 @@ public class EventHandlerAdapter {
             .topic(Topic.INVENTORY_EVENT)
             .traceId(traceId)
             .eventId(eventId)
-            .payload(message.getPayload())
-            .type(eventType)
+            .payload(objectMapper.writeValueAsString(payload))
+            .type(EventType.INVENTORY_SUCCEEDED)
             .build());
   }
 
