@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.common.type.AggregateType;
+import org.common.type.OrderStatus;
 import org.common.type.OrderType;
 import org.common.type.Topic;
 
@@ -24,4 +25,15 @@ public class OrderOutbox {
   private String payload;
   private UUID traceId;
   private UUID eventId;
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  public static class Payload {
+    private UUID id;
+    private UUID productId;
+    private OrderStatus status;
+    private int quantity;
+  }
 }

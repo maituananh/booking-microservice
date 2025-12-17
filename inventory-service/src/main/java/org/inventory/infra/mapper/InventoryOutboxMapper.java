@@ -29,7 +29,7 @@ public class InventoryOutboxMapper {
     return InventoryOutbox.builder()
         .id(entity.getId())
         .type(entity.getType())
-        .topic(Topic.valueOf(entity.getTopic()))
+        .topic(Topic.fromValue(entity.getTopic()))
         .aggregateId(entity.getAggregateId())
         .aggregateType(entity.getAggregateType())
         .payload(entity.getPayload())

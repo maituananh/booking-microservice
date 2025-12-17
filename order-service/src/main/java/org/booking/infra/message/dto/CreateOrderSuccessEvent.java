@@ -11,7 +11,8 @@ import org.common.type.OrderStatus;
 @NoArgsConstructor
 public class CreateOrderSuccessEvent {
 
-  private UUID orderId;
+  private UUID id; // orderId
   private UUID productId;
   private OrderStatus status;
+  private Integer quantity;
 }

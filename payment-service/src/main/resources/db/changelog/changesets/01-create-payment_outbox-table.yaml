@@ -3,6 +3,12 @@ databaseChangeLog:
       id: 1
       author: anhmt
       changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         - createTable:
             tableName: payments_outbox
             columns:

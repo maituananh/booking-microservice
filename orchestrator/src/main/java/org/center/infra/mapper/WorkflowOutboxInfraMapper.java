@@ -28,7 +28,7 @@ public class WorkflowOutboxInfraMapper {
   public static WorkflowOutbox toDomain(final WorkflowOutboxEntity workflowOutboxEntity) {
     return WorkflowOutbox.builder()
         .id(workflowOutboxEntity.getId())
-        .topic(Topic.valueOf(workflowOutboxEntity.getTopic()))
+        .topic(Topic.fromValue(workflowOutboxEntity.getTopic()))
         .aggregateType(workflowOutboxEntity.getAggregateType())
         .aggregateId(workflowOutboxEntity.getAggregateId())
         .payload(workflowOutboxEntity.getPayload())

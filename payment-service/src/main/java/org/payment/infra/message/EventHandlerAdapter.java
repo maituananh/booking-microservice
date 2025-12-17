@@ -6,9 +6,9 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.common.type.AggregateType;
+import org.common.type.EventType;
 import org.common.type.Topic;
 import org.common.utils.ConvertUtils;
-import org.payment.domain.entity.PaymentInbox;
 import org.payment.domain.entity.PaymentOutbox;
 import org.payment.domain.store.PaymentInboxStore;
 import org.payment.domain.store.PaymentOutboxStore;
@@ -50,23 +50,15 @@ public class EventHandlerAdapter {
 
     final var aggregateId = UUID.randomUUID();
 
-    paymentInboxStore.save(
-        PaymentInbox.builder()
-            .eventId(eventId)
-            .aggregateId(aggregateId)
-            .aggregateType(AggregateType.INVENTORY)
-            .traceId(traceId)
-            .build());
-
     paymentOutboxStore.save(
         PaymentOutbox.builder()
             .aggregateId(aggregateId)
-            .aggregateType(AggregateType.INVENTORY)
+            .aggregateType(AggregateType.PAYMENT)
             .topic(Topic.PAYMENTS_EVENT)
             .traceId(traceId)
             .eventId(eventId)
             .payload(message.getPayload())
-            .type(eventType)
+            .type(EventType.PAYMENT_SUCCEEDED)
             .build());
   }
 

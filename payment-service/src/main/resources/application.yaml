@@ -28,6 +28,7 @@ spring:
       bindings:
         handlePayment-in-0:
           destination: payments.command
+          group: payment-group
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000

@@ -58,7 +58,7 @@ public class OrderInfraMapper {
   public static Order toDomain(
       final CreateOrderSuccessEvent event, final UUID eventId, final UUID traceId) {
     return Order.builder()
-        .id(event.getOrderId())
+        .id(event.getId())
         .status(event.getStatus())
         .productId(event.getProductId())
         .eventId(eventId)

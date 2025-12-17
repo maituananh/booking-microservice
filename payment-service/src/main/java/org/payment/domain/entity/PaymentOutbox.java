@@ -5,6 +5,7 @@ import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import org.common.type.AggregateType;
+import org.common.type.EventType;
 import org.common.type.Topic;
 
 @Data
@@ -14,7 +15,7 @@ public class PaymentOutbox {
   private UUID id;
   private UUID aggregateId;
   private AggregateType aggregateType;
-  private String type;
+  private EventType type;
   private String payload;
   private Topic topic;
   private UUID traceId;

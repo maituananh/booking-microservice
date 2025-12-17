@@ -1,18 +1,17 @@
 package org.booking.application.usecase;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.booking.domain.entity.Order;
 import org.booking.domain.entity.OrderOutbox;
 import org.booking.domain.store.OrderOutboxStore;
 import org.booking.domain.store.OrderStore;
-import org.booking.presentation.request.CreateOrderRequest;
 import org.common.type.AggregateType;
 import org.common.type.OrderStatus;
 import org.common.type.OrderType;
 import org.common.type.Topic;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @RequiredArgsConstructor
@@ -21,18 +20,7 @@ public class CreateOrderUsecase {
 
   private final OrderStore orderStore;
   private final OrderOutboxStore orderOutboxStore;
-
-  public void execute(final CreateOrderRequest createOrderRequest) {
-    final var order =
-        Order.builder()
-            .traceId(UUID.randomUUID())
-            .eventId(UUID.randomUUID())
-            .productId(createOrderRequest.getProductId())
-            .quantity(createOrderRequest.getQuantity())
-            .build();
-
-    execute(order);
-  }
+  private final ObjectMapper objectMapper;
 
   @Transactional
   public void execute(final Order order) {
@@ -45,6 +33,14 @@ public class CreateOrderUsecase {
                 .productId(order.getProductId())
                 .build());
 
+    final var payload =
+        OrderOutbox.Payload.builder()
+            .id(orderSaved.getId())
+            .productId(orderSaved.getProductId())
+            .quantity(orderSaved.getQuantity())
+            .status(orderSaved.getStatus())
+            .build();
+
     orderOutboxStore.save(
         OrderOutbox.builder()
             .orderId(order.getId())
@@ -55,6 +51,7 @@ public class CreateOrderUsecase {
             .aggregateId(orderSaved.getId())
             .traceId(order.getTraceId())
             .eventId(order.getEventId())
+            .payload(objectMapper.writeValueAsString(payload))
             .build());
   }
 }

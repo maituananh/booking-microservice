@@ -28,6 +28,7 @@ spring:
       bindings:
         orderRequest-in-0:
           destination: orders.event
+          group: order-orchestrator
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000
@@ -35,6 +36,7 @@ spring:
             back-off-multiplier: 2.0
         inventoryReserveStock-in-0:
           destination: inventory.event
+          group: inventory-orchestrator
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000
@@ -42,6 +44,7 @@ spring:
             back-off-multiplier: 2.0
         paymentReply-in-0:
           destination: payments.event
+          group: payments-orchestrator
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000
@@ -49,6 +52,7 @@ spring:
             back-off-multiplier: 2.0
         orderSuccess-in-0:
           destination: ORDER_SUCCESS.events
+          group: orderSuccess-orchestrator
           consumer:
             max-attempts: 3
             back-off-initial-interval: 1000

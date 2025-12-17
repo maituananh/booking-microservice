@@ -1,7 +1,9 @@
 package org.booking.presentation.controller;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.booking.application.usecase.CreateOrderUsecase;
+import org.booking.domain.entity.Order;
 import org.booking.presentation.request.CreateOrderRequest;
 import org.booking.presentation.response.OrderResponse;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,15 @@ public class OrderController {
   @PostMapping
   public ResponseEntity<OrderResponse> addOrder(
       @RequestBody CreateOrderRequest createOrderRequest) {
-    createOrderUsecase.execute(createOrderRequest);
+    final var order =
+        Order.builder()
+            .traceId(UUID.randomUUID())
+            .eventId(UUID.randomUUID())
+            .productId(createOrderRequest.getProductId())
+            .quantity(createOrderRequest.getQuantity())
+            .build();
+
+    createOrderUsecase.execute(order);
     return null;
   }
 }

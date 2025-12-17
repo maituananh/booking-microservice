@@ -17,4 +17,13 @@ public enum Topic {
   ;
 
   private final String value;
+
+  public static Topic fromValue(String value) {
+    for (Topic t : values()) {
+      if (t.value.equals(value)) {
+        return t;
+      }
+    }
+    throw new IllegalArgumentException("Unknown topic: " + value);
+  }
 }

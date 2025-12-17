@@ -31,6 +31,8 @@ public class EventHandleAdapter {
   public void handleEvent(final Message<String> message) {
     final var eventType = ConvertUtils.toString(message.getHeaders().get(EVENT_TYPE));
 
+    log.info("Received event {}", eventType);
+
     switch (EventType.valueOf(eventType)) {
       case ORDER_CREATED -> handleOrderRequest(message);
       case ORDER_CANCELLED -> handleOrderFailed(message);

@@ -26,7 +26,7 @@ public class OrderOutboxInfraMapper {
 
   public static OrderOutbox toDomain(final OrderOutboxEntity orderOutboxEntity) {
     return OrderOutbox.builder()
-        .topic(Topic.valueOf(orderOutboxEntity.getTopic()))
+        .topic(Topic.fromValue(orderOutboxEntity.getTopic()))
         .aggregateId(orderOutboxEntity.getAggregateId())
         .aggregateType(orderOutboxEntity.getAggregateType())
         .type(orderOutboxEntity.getType())

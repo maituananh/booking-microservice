@@ -27,7 +27,7 @@ spring:
     stream:
       bindings:
         handleOrderRequest-in-0:
-          destination: orders.event
+          destination: orders.command
       kafka:
         binder:
           brokers: localhost:29092
