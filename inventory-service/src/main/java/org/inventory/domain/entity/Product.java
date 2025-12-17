@@ -14,9 +14,11 @@ import lombok.NoArgsConstructor;
 public class Product {
 
   private UUID id;
+  private String name;
   private Integer availableQuantity;
   private Integer reservedQuantity;
   private Integer onHandQuantity;
+  private Long amount;
   private Instant createdAt;
   private Instant updatedAt;
 }

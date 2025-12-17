@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.common.type.AggregateType;
+import org.common.type.EventType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -32,7 +33,8 @@ public class InventoryOutboxEntity {
   private AggregateType aggregateType;
 
   @Column(name = "type")
-  private String type;
+  @Enumerated(EnumType.STRING)
+  private EventType type;
 
   @Column(name = "payload", columnDefinition = "jsonb")
   @JdbcTypeCode(SqlTypes.JSON)

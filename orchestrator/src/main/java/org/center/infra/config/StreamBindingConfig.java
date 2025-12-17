@@ -27,9 +27,4 @@ public class StreamBindingConfig {
   public Consumer<Message<String>> paymentReply() {
     return eventHandleAdapter::consumerPayment;
   }
-
-  @Bean
-  public Consumer<Message<String>> orderSuccess() {
-    return eventHandleAdapter::consumerOrderSuccess;
-  }
 }
