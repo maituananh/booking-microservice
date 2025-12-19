@@ -13,6 +13,8 @@ import org.payment.domain.entity.PaymentOutbox;
 import org.payment.domain.store.PaymentInboxStore;
 import org.payment.domain.store.PaymentOutboxStore;
 import org.payment.infra.message.dto.PaymentEvent;
+import org.payment.infra.payment.PaymentAdapter;
+import org.payment.infra.payment.request.PaymentRequest;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ public class EventHandlerAdapter {
 
   private final PaymentOutboxStore paymentOutboxStore;
   private final PaymentInboxStore paymentInboxStore;
+  private final PaymentAdapter paymentAdapter;
 
   @Transactional
   public void handlePayment(final Message<String> message) {
@@ -48,18 +51,33 @@ public class EventHandlerAdapter {
 
     PaymentEvent paymentEvent = objectMapper.readValue(message.getPayload(), PaymentEvent.class);
 
-    final var aggregateId = UUID.randomUUID();
+    log.info("EventHandlerAdapter payment event {}", paymentEvent);
 
-    paymentOutboxStore.save(
-        PaymentOutbox.builder()
-            .aggregateId(aggregateId)
-            .aggregateType(AggregateType.PAYMENT)
-            .topic(Topic.PAYMENTS_EVENT)
-            .traceId(traceId)
-            .eventId(eventId)
-            .payload(message.getPayload())
-            .type(EventType.PAYMENT_SUCCEEDED)
-            .build());
+    try {
+      final var paymentResult =
+          paymentAdapter.payment(
+              PaymentRequest.builder()
+                  .quantity(paymentEvent.getQuantity())
+                  //                  .productName(paymentEvent.getProductName())
+                  .productName("Jeans")
+                  .amount(paymentEvent.getAmount())
+                  .build());
+
+      final var aggregateId = UUID.randomUUID();
+
+      paymentOutboxStore.save(
+          PaymentOutbox.builder()
+              .aggregateId(aggregateId)
+              .aggregateType(AggregateType.PAYMENT)
+              .topic(Topic.PAYMENTS_EVENT)
+              .traceId(traceId)
+              .eventId(eventId)
+              .payload(objectMapper.writeValueAsString(paymentResult))
+              .type(EventType.PAYMENT_SUCCEEDED)
+              .build());
+    } catch (Exception e) {
+      log.error("PaymentAdapter payment failed", e);
+    }
   }
 
   private boolean isDuplicatedEvent(final UUID eventId) {

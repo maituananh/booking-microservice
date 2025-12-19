@@ -36,7 +36,11 @@ spring:
             back-off-multiplier: 2.0
       kafka:
         binder:
+          configuration:
+            enable.idempotence: true
+            acks: all
           brokers: localhost:29092
+          required-acks: true
         bindings:
           handlePayment-in-0:
             consumer:

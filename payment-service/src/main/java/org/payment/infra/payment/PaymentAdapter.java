@@ -1,15 +1,16 @@
 package org.payment.infra.payment;
 
 import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
+import lombok.extern.slf4j.Slf4j;
 import org.payment.infra.payment.request.PaymentRequest;
 import org.payment.infra.payment.response.PaymentResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class PaymentAdapter {
 
   @Value("${stripe.secret-ket}")
@@ -19,7 +20,9 @@ public class PaymentAdapter {
     Stripe.apiKey = secretKey;
   }
 
-  public PaymentResponse payment(final PaymentRequest request) throws StripeException {
+  public PaymentResponse payment(final PaymentRequest request) {
+    Stripe.apiKey = secretKey;
+
     final var productData =
         SessionCreateParams.LineItem.PriceData.ProductData.builder()
             .setName(request.getProductName())
@@ -41,14 +44,16 @@ public class PaymentAdapter {
     final var sessionCreateParams =
         SessionCreateParams.builder()
             .setMode(SessionCreateParams.Mode.PAYMENT)
-            .setSuccessUrl("")
-            .setCancelUrl("")
+            .setSuccessUrl("https://mail.google.com")
+            .setCancelUrl("https://dashboard.stripe.com")
             .addLineItem(lineItem)
             .build();
 
     Session session = null;
     try {
       session = Session.create(sessionCreateParams);
+
+      log.info("Session created: {}", session);
 
       return PaymentResponse.builder()
           .status(session.getStatus())
