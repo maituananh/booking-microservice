@@ -1,7 +1,6 @@
 package org.payment.infra.payment;
 
 import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import org.payment.infra.payment.request.PaymentRequest;
@@ -19,7 +18,7 @@ public class PaymentAdapter {
     Stripe.apiKey = secretKey;
   }
 
-  public PaymentResponse payment(final PaymentRequest request) throws StripeException {
+  public PaymentResponse payment(final PaymentRequest request) {
     final var productData =
         SessionCreateParams.LineItem.PriceData.ProductData.builder()
             .setName(request.getProductName())
