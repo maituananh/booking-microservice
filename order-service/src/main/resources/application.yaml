@@ -28,6 +28,45 @@ spring:
       bindings:
         handleOrderRequest-in-0:
           destination: orders.command
+          group: order-service
+          consumer:
+            batch-mode: false
+            max-attempts: 3
       kafka:
         binder:
           brokers: localhost:29092
+        bindings:
+          orderConsumer-in-0:
+            consumer:
+              configuration:
+                max.poll.records: 500
+                fetch.min.bytes: 1048576
+                fetch.max.wait.ms: 500
+                max.poll.interval.ms: 300000
+                enable.auto.commit: true
+    openfeign:
+      circuitbreaker:
+        enabled: true
+    circuitbreaker:
+      enabled: true
+      resilience4j:
+        circuitbreaker:
+          configs:
+            default:
+              slidingWindowSize: 10
+              failureRateThreshold: 50
+              waitDurationInOpenState: 10s
+          instances:
+            inventoryService:
+              slidingWindowType: TIME_BASED
+              slidingWindowSize: 60s # Window of 60 seconds
+              failureRateThreshold: 60 # Open circuit if 60% of calls fail
+              waitDurationInOpenState: 20s # Wait 20 seconds in OPEN state
+              permittedNumberOfCallsInHalfOpenState: 5 # Allow 5 calls in HALF_OPEN
+              minimumNumberOfCalls: 10 # Need at least 10 calls to start calculating failure rate
+        enabled: true
+
+logging:
+  level:
+    io.github.resilience4j.circuitbreaker: DEBUG
+    org.springframework.cloud.openfeign: DEBUG
