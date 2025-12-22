@@ -13,6 +13,8 @@ public class PaymentEvent {
 
   private UUID id;
   private UUID productId;
+  private String productName;
+  private Long amount;
   private OrderStatus status;
-  private int quantity;
+  private Long quantity;
 }
