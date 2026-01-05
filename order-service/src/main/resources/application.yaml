@@ -1,6 +1,12 @@
 server:
   port: 8181
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,circuitbreakers
+
 spring:
   application:
     name: order-service
@@ -46,27 +52,38 @@ spring:
                 enable.auto.commit: true
     openfeign:
       circuitbreaker:
-        enabled: true
-    circuitbreaker:
-      enabled: true
-      resilience4j:
-        circuitbreaker:
-          configs:
-            default:
-              slidingWindowSize: 10
-              failureRateThreshold: 50
-              waitDurationInOpenState: 10s
-          instances:
-            inventoryService:
-              slidingWindowType: TIME_BASED
-              slidingWindowSize: 60s # Window of 60 seconds
-              failureRateThreshold: 60 # Open circuit if 60% of calls fail
-              waitDurationInOpenState: 20s # Wait 20 seconds in OPEN state
-              permittedNumberOfCallsInHalfOpenState: 5 # Allow 5 calls in HALF_OPEN
-              minimumNumberOfCalls: 10 # Need at least 10 calls to start calculating failure rate
-        enabled: true
+        enabled: false
+        alphanumeric-ids:
+          enabled: false
+
+resilience4j:
+  retry:
+    retry-aspect-order: 1 # Retry first after using circuitbreaker.circuit-breaker-aspect-order to open or close
+    instances:
+      inventoryService:
+        max-attempts: 3
+        wait-duration: 200ms
+        retry-exceptions:
+          - feign.RetryableException
+          - feign.FeignException
+  circuitbreaker:
+    circuit-breaker-aspect-order: 2
+    configs:
+      default:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+    instances:
+      inventoryService:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 60 # Window of 60 seconds
+        failure-rate-threshold: 60 # Open circuit if 60% of calls fail
+        wait-duration-in-open-state: 20s # Wait 20 seconds in OPEN state
+        permitted-number-of-calls-in-half-open-state: 5 # Allow 5 calls in HALF_OPEN
+        minimum-number-of-calls: 10 # Need at least 10 calls to start calculating failure rate
 
 logging:
   level:
     io.github.resilience4j.circuitbreaker: DEBUG
     org.springframework.cloud.openfeign: DEBUG
+    io.github.resilience4j.retry: DEBUG
