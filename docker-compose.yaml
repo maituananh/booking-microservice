@@ -67,6 +67,50 @@ services:
     networks:
       - kafka-net
 
+  prometheus:
+    image: "prom/prometheus"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    container_name: prometheus
+    networks:
+      - kafka-net
+
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "3000:3000"
+    container_name: grafana
+    volumes:
+      - ./datasources.yml:/etc/grafana/provisioning/datasources.yml
+    networks:
+      - kafka-net
+
+  loki:
+    image: "grafana/loki"
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yml
+    volumes:
+      - ./loki-config.yml:/etc/loki/loki-config.yml
+    networks:
+      - kafka-net
+
+  promtail:
+    image: "grafana/promtail"
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/promtail-config.yml
+      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    command: config.file=/etc/promtail/promtail-config.yml
+    depends_on:
+      - loki
+    networks:
+      - kafka-net
+
 networks:
   kafka-net:
     driver: bridge
